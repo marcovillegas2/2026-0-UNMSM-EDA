@@ -24,8 +24,8 @@ class ArrayForwardIterator
   public:
     ArrayForwardIterator(Container *pContainer, size_t pos=0) 
          : m_pContainer(pContainer) {
-          m_data = m_pContainer->m_data;
-          m_pos  = 0;
+           m_data = m_pContainer->m_data;
+           m_pos = pos;
          }
     ArrayForwardIterator(ArrayForwardIterator<Container> &another)
          :  m_pContainer(another.m_pContainer),
@@ -78,9 +78,11 @@ class CArray {
 
     template <typename ObjFunc, typename ...Args>
     void Foreach(ObjFunc of, Args... args){
-      for (auto i = 0; i < getSize(); ++i)
-          of(m_data[i], args...);
+        ::Foreach(*this, of, args...);
+        // for (auto i = 0; i < getSize(); ++i)
+        //     of(m_data[i], args...);
     }
+    
 };
 
 template <typename Traits>
